@@ -16,8 +16,6 @@ import gui.VentanaMenuAutor;
 import gui.VentanaVerDatos;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class AplicacionAutores {
@@ -39,7 +37,7 @@ public class AplicacionAutores {
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write("[]");
             } catch (IOException ex) {
-                System.out.println("Error IOException" + ex.getMessage());
+                System.out.println("Error al crear el fichero " + ex.getMessage());
             }
         }
     }
@@ -53,9 +51,9 @@ public class AplicacionAutores {
         try (FileWriter file = new FileWriter(RUTA_FICHERO)) {
             file.write(autores.toString());
             file.flush();
-            System.out.println("entrar");
+            
         } catch (IOException ex) {
-            Logger.getLogger(AplicacionAutores.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al guardar el fichero"+ex.getMessage());
         }
     }
 
