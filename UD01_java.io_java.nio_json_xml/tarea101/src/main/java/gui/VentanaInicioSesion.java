@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -82,7 +83,15 @@ public class VentanaInicioSesion extends JFrame implements ActionListener {
             app.iniciarValidacion(textoAutor.getText(), textoTitulo.getText());
         }
         if (btn.equals(btnCrearNuevoAutorLibro)) {
-            System.out.println("Crear nuevo libro");
+            app.mostrarVentanaCrearAutor();
         }
+    }
+    
+    /**
+     * Muestra un mensaje modal
+     * @param mensaje 
+     */
+    public void mostrarMensaje(String mensaje){
+        JOptionPane.showMessageDialog(null, mensaje, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
     }
 }

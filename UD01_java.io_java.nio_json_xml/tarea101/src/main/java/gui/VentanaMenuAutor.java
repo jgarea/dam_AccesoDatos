@@ -15,66 +15,79 @@ import model.AplicacionAutores;
 
 public class VentanaMenuAutor extends JFrame implements ActionListener {
 
-	private JPanel contentPane;
-	private JLabel etiquetaMenuAutor;
-	private JTextPane textoNombreAutor;
-	private JButton btnVerDatos;
-	private JButton btnCambiarTituloLibro;
-	private JButton btnBorrarAutor;
-	private JButton btnCerrarValidacion;
-	private AplicacionAutores app;
-	private String nombreAutor;
+    private JPanel contentPane;
+    private JLabel etiquetaMenuAutor;
+    private JTextPane textoNombreAutor;
+    private JButton btnVerDatos;
+    private JButton btnCambiarTituloLibro;
+    private JButton btnBorrarAutor;
+    private JButton btnCerrarValidacion;
+    private AplicacionAutores app;
+    private String nombreAutor;
 
-	public VentanaMenuAutor(AplicacionAutores app, String nombreAutor) {
-		this.app = app;
-		this.nombreAutor = nombreAutor;
+    public VentanaMenuAutor(AplicacionAutores app, String nombreAutor) {
+        this.app = app;
+        this.nombreAutor = nombreAutor;
 
-		setTitle("Aplicación autores");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 325, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setTitle("Aplicación autores");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 325, 300);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		setLocationRelativeTo(null);
-		setResizable(false);
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
-		etiquetaMenuAutor = new JLabel("Menú del autor:");
-		etiquetaMenuAutor.setFont(new Font("Tahoma", Font.BOLD, 16));
-		etiquetaMenuAutor.setBounds(10, 24, 147, 14);
-		contentPane.add(etiquetaMenuAutor);
+        etiquetaMenuAutor = new JLabel("Menú del autor:");
+        etiquetaMenuAutor.setFont(new Font("Tahoma", Font.BOLD, 16));
+        etiquetaMenuAutor.setBounds(10, 24, 147, 14);
+        contentPane.add(etiquetaMenuAutor);
 
-		btnVerDatos = new JButton("Ver datos");
-		btnVerDatos.setBounds(71, 64, 163, 23);
-		btnVerDatos.addActionListener(this);
-		contentPane.add(btnVerDatos);
+        btnVerDatos = new JButton("Ver datos");
+        btnVerDatos.setBounds(71, 64, 163, 23);
+        btnVerDatos.addActionListener(this);
+        contentPane.add(btnVerDatos);
 
-		btnCambiarTituloLibro = new JButton("Cambiar título del libro");
-		btnCambiarTituloLibro.setBounds(71, 98, 163, 23);
-		btnCambiarTituloLibro.addActionListener(this);
-		contentPane.add(btnCambiarTituloLibro);
+        btnCambiarTituloLibro = new JButton("Cambiar título del libro");
+        btnCambiarTituloLibro.setBounds(71, 98, 163, 23);
+        btnCambiarTituloLibro.addActionListener(this);
+        contentPane.add(btnCambiarTituloLibro);
 
-		btnBorrarAutor = new JButton("Borrar autor");
-		btnBorrarAutor.setBounds(71, 132, 163, 23);
-		btnBorrarAutor.addActionListener(this);
-		contentPane.add(btnBorrarAutor);
+        btnBorrarAutor = new JButton("Borrar autor");
+        btnBorrarAutor.setBounds(71, 132, 163, 23);
+        btnBorrarAutor.addActionListener(this);
+        contentPane.add(btnBorrarAutor);
 
-		btnCerrarValidacion = new JButton("Cerrar validación");
-		btnCerrarValidacion.setBounds(150, 227, 145, 23);
-		btnCerrarValidacion.addActionListener(this);
-		contentPane.add(btnCerrarValidacion);
+        btnCerrarValidacion = new JButton("Cerrar validación");
+        btnCerrarValidacion.setBounds(150, 227, 145, 23);
+        btnCerrarValidacion.addActionListener(this);
+        contentPane.add(btnCerrarValidacion);
 
-		textoNombreAutor = new JTextPane();
-		textoNombreAutor.setEditable(false);
-		textoNombreAutor.setBounds(167, 24, 132, 20);
-		textoNombreAutor.setText(nombreAutor);
-		contentPane.add(textoNombreAutor);
-	}
+        textoNombreAutor = new JTextPane();
+        textoNombreAutor.setEditable(false);
+        textoNombreAutor.setBounds(167, 24, 132, 20);
+        textoNombreAutor.setText(nombreAutor);
+        contentPane.add(textoNombreAutor);
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton btn = (JButton) e.getSource();
+        if (btn.equals(btnVerDatos)) {
+            app.mostrarVentanaVerDatos(nombreAutor);
+        }
+        if (btn.equals(btnCambiarTituloLibro)) {
+            app.mostrarVentanaCambiarTitulo(nombreAutor);
+        }
+        if (btn.equals(btnBorrarAutor)) {
+            app.mostrarVentanaBorrarAutor(nombreAutor);
+        }
+        if (btn.equals(btnCerrarValidacion)) {
+            dispose();
+        }
+        
+    }
 
 }

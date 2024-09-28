@@ -1,11 +1,13 @@
 package model;
 
-public class Principal
-{
+/**
+ * 
+ * @author jgntr
+ */
+public class Principal {
 
-	public static void main(String[] args)
-	{
-		AplicacionAutores app = new AplicacionAutores();
-		app.ejecutar();
-	}
+    public static void main(String[] args) {
+        AplicacionAutores app = new AplicacionAutores();
+        app.ejecutar();
+    }
 }
