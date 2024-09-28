@@ -104,7 +104,7 @@ private void listClient() {
 
 # API `java.io`
 * `File`: representa un archivo/directorio y permite realizar operaciones como verificar si existe un archivo o directorio, obtener propiedades eliminarlo, crearlo.
-* `InputStream` y `OutputStream` clases abstratas para leer y escribir byte a byte,se almacenan en binario. Se utilizan para almacenar un archivo como un ejecutable o una imagen.
+* `InputStream` y `OutputStream` clases abstratas para leer y escribir byte a byte,se almacenan en binario. Se utilizan para almacenar un archivo como un ejecutable o una imagen. **Orientada a bytes (Byte streams) (8 bits):**
     * Clases concretas:
         * ``ByteArrayInputStream``: Crea un InputStream a partir dun array de byte (byte[]) pasado como parámetro
         ao seu construtor. Cando lemos deste Stream lemos do array de datos.
@@ -127,7 +127,7 @@ private void listClient() {
         obxectos ao final de un ficheiro xa existente. Nese caso unha solución e empregar unha clase herdada na
         que este método non faga nada.
 
-* `Reader` y `Writer`: Clases abstractas para leer y escribir caracteres en vez de bytes, se utilizan para almacenar archivos de texto.
+* `Reader` y `Writer`: Clases abstractas para leer y escribir caracteres en vez de bytes, se utilizan para almacenar archivos de texto. **Orientada a caracteres (Character streams) (16 bits):**
     * Clases concretas:
         * `FileReader` , `FileWriter`
 
@@ -140,6 +140,11 @@ private void listClient() {
         * `PrintWriter` Esta clase proporciona métodos que nos permiten dar formato a conversión en texto da
         información que queremos escribir no Stream, destacando as distintas versións sobrecargadas dos
         métodos **print**, **println** e **printf**
+
+* Manejan flujos de caracteres Unicode.
+* Están determinados por dos clases abstractas: **Reader** y **Writer**.
+  * Definen subclases concretas que implementan los métodos definidos en ellas
+  * Destaca, también, los métodos **read()** y **write()** que leen y escriben caracteres de datos, respectivamente.
 
 ## Elegir la clase:
 * Primero tenemos que comprobar si queremos escribir o leer caracteres o en binario.
