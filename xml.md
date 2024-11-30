@@ -232,3 +232,84 @@ public class Transaccion {
     }
 }
 ```
+# INSERT
+```java
+public void crearNuevoProveedor(String nombreProveedor, String nif, int telefono, String email){
+        try(Connection con=DatabasePostgresql.getInstance();
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO proveedores(nombre_proveedor,contacto,nif) VALUES (?,ROW(?,?,?),?)");){
+            stmt.setString(1, nombreProveedor);
+            stmt.setString(2, null);
+            stmt.setInt(3, telefono);
+            stmt.setString(4, email);
+            stmt.setString(5, nif);
+            int consulta=stmt.executeUpdate();
+            if(consulta>0)
+                System.out.println("Proveedor creado.");
+            else
+                System.out.println("Proveedor no ha podido crearse.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+```
+
+# SELECT
+```java
+public void obtenerTotalPedidosUsuarios(){
+        String sql="SELECT usuarios.nombre, COUNT(pedidos.id_pedido) "
+                + "AS total_pedidos FROM usuarios "
+                + "JOIN pedidos ON usuarios.id_usuario=pedidos.id_usuario "
+                + "GROUP BY usuarios.nombre";
+        try(Connection con = DB.DatabaseMysql.getInstance();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet result = stmt.executeQuery();) {
+            while(result.next()){
+                System.out.println("Nombre: "+result.getString(1)+" Total pedidos: "+result.getInt(2));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+```
+
+# UPDATE
+```java
+public void actualizarProveedor(int id, String nombreProveedor, String nif, int telefono, String email){
+    try(Connection con=DatabasePostgresql.getInstance();
+            PreparedStatement stmt = con.prepareStatement("UPDATE proveedores SET nombre_proveedor = ?, contacto = ROW(?,?,?), nif = ? WHERE id_proveedor = ?");){
+        stmt.setString(1, nombreProveedor);
+        stmt.setString(2, null);
+        stmt.setInt(3, telefono);
+        stmt.setString(4, email);
+        stmt.setString(5, nif);
+        stmt.setInt(6, id);
+        int rowsAffected = stmt.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Proveedor actualizado correctamente.");
+        } else {
+            System.out.println("No se encontró un proveedor con el ID especificado.");
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+}
+```
+
+# DELETE
+```java
+public void eliminarProveedor(int id){
+    try(Connection con=DatabasePostgresql.getInstance();
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM proveedores WHERE id_proveedor = ?");){
+            
+        stmt.setInt(1, id);
+        int rowsAffected = stmt.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Proveedor eliminado correctamente.");
+        } else {
+            System.out.println("No se encontró un proveedor con el ID especificado.");
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+}
+```
