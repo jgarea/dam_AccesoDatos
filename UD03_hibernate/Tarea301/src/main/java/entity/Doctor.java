@@ -2,14 +2,14 @@ package entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  *
@@ -32,6 +32,15 @@ public class Doctor {
     @Column(name = "telefono")
     private String telefono;
     
+    
     @OneToOne(mappedBy = "doctor")
+    //@ToString.Exclude // Evita la recursión infinita
     private Cita cita;
+
+
+    @Override
+    public String toString() {
+        return "Doctor{" + "id=" + id + ", nombre=" + nombre + ", especialidad=" + especialidad + ", telefono=" + telefono + ", cita=" + cita + '}';
+    }
+    
 }

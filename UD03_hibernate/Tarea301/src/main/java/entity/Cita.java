@@ -5,11 +5,14 @@
 package entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.ToString;
 
 /**
  *
@@ -26,13 +29,14 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NonNull
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    //@Temporal(TemporalType.DATE)
+    private LocalDate fecha;
     @NonNull
     private String estado;
     
     @OneToOne
     @JoinColumn(name = "id_doctor")
+    @ToString.Exclude 
     private Doctor doctor;
     
     public void setDoctorBidireccional(Doctor doctor){
@@ -44,5 +48,9 @@ public class Cita {
     @JoinColumn(name = "id_paciente")
     private Paciente paciente;
     
+    @Override
+    public String toString() {
+        return "Cita{" + "id=" + id + ", fecha=" + fecha + ", estado=" + estado + '}';
+    }
     
 }

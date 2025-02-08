@@ -5,8 +5,8 @@
 package entity;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,18 +26,18 @@ import lombok.RequiredArgsConstructor;
 public class Paciente {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NonNull
     private String nombre;
     @NonNull
-    @Temporal(TemporalType.DATE)
-    private Date fecha_nacimiento;
+    //@Temporal(TemporalType.DATE)
+    private LocalDate fecha_nacimiento;
     @NonNull 
     private String direccion;
     
     @OneToMany(mappedBy = "paciente")
-    private ArrayList<Cita> citas;
+    private List<Cita> citas;
     
     public void addCitas(Cita cita){
         this.citas.add(cita);
