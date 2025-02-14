@@ -1,9 +1,18 @@
+import entity.Cita;
 import entity.Doctor;
+import entity.Hospital;
 import entity.Paciente;
+import entity.Recibe;
+import entity.Tratamiento;
 
 import org.hibernate.Session;
+
+import repositorio.CitaRepositorio;
 import repositorio.DoctorRepositorio;
+import repositorio.HospitalRepositorio;
 import repositorio.PacienteRepositorio;
+import repositorio.RecibeRepositorio;
+import repositorio.TratamientoRepositorio;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -20,6 +29,10 @@ public class Tarea301 {
     static Scanner scanner;
     static DoctorRepositorio doctorRepositorio;
     static PacienteRepositorio pacienteRepositorio;
+    static TratamientoRepositorio tratamientoRepositorio;
+    static RecibeRepositorio recibeRepositorio;
+    static CitaRepositorio citaRepositorio;
+    static HospitalRepositorio hospitalRepositorio;
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
 
@@ -27,6 +40,11 @@ public class Tarea301 {
 
         doctorRepositorio = new DoctorRepositorio(session);
         pacienteRepositorio = new PacienteRepositorio(session);
+        tratamientoRepositorio = new TratamientoRepositorio(session);
+        recibeRepositorio = new RecibeRepositorio(session);
+        citaRepositorio = new CitaRepositorio(session);
+        hospitalRepositorio = new HospitalRepositorio(session);
+
 
         int opcion = 0;
         while (opcion!=13) {
@@ -37,6 +55,7 @@ public class Tarea301 {
             System.out.println("4. Crear paciente");
             System.out.println("5. Modificar paciente");
             System.out.println("6. Borrar paciente por nombre");
+            //Hay que cambiar la clave unica de id_doctor de la tabla cita para probar
             System.out.println("7. Asignar doctor a paciente");
             System.out.println("8. Indicar fecha de fin de tratamiento");
             System.out.println("9. Cambiar hospital de tratamiento");
@@ -71,19 +90,19 @@ public class Tarea301 {
                     asignarDoctorAPaciente();
                     break;
                 case 8:
-                    // Implementar indicarFechaFinTratamiento
+                    indicarFechaFinTratamiento();
                     break;
                 case 9:
-                    // Implementar cambiarHospitalTratamiento
+                    cambiarHospitalTratamiento();
                     break;
                 case 10:
-                    // Implementar mostrarDatosPaciente
+                    mostrarDatosPaciente();
                     break;
                 case 11:
-                    // Implementar mostrarDatosTratamientosPorHospital
+                    mostrarDatosTratamientosPorHospital();
                     break;
                 case 12:
-                    // Implementar mostrarNumeroTotalTratamientosPorHospital
+                    mostrarNumeroTotalTratamientosPorHospital();
                     break;
                 case 13:
                     break;
@@ -229,23 +248,124 @@ public class Tarea301 {
         Doctor doctor = doctorRepositorio.buscarPorNombre(nombreDoctor);
         Paciente paciente = pacienteRepositorio.buscarPorNombre(nombrePaciente);
 
+        if(doctor == null){
+            System.out.println("No se ha encontrado el doctor con nombre " + nombreDoctor);
+            return;
+        }
+        if(paciente == null){
+            System.out.println("No se ha encontrado el paciente con nombre " + nombrePaciente);
+            return;
+        }
+            if(citaRepositorio.doctorTieneCita(doctor.getId())){
+                System.out.println("El doctor ya tiene una cita asignada, prueba con otro doctor");
+                return;
+            }
         
 
-        if (doctor != null && paciente != null) {
-            // Asignar el doctor al paciente
-            // Aquí se debe implementar la lógica para asignar el doctor al paciente
-            // Dependiendo de la estructura de las entidades y la base de datos
-
-            //TODO
-             //paciente.
+       
+            Cita cita = new Cita();
+            cita.setDoctor(doctor);
+            cita.setPaciente(paciente);
+            cita.setFecha(LocalDate.now());
+            cita.setEstado("Pendiente");
+            citaRepositorio.guardar(cita);
             System.out.println("Doctor " + nombreDoctor + " asignado al paciente " + nombrePaciente);
-        } else {
-            if (doctor == null) {
-                System.out.println("No se ha encontrado el doctor con nombre " + nombreDoctor);
-            }
-            if (paciente == null) {
-                System.out.println("No se ha encontrado el paciente con nombre " + nombrePaciente);
-            }
-        }
+        
     }
+
+    private static void indicarFechaFinTratamiento() {
+        System.out.println("Introduzca el nombre del paciente:");
+        String nombrePaciente = scanner.nextLine();
+        Paciente paciente=pacienteRepositorio.buscarPorNombre(nombrePaciente);
+        if (paciente == null) {
+            System.out.println("No se ha encontrado el paciente con nombre " + nombrePaciente);
+            return;
+        }
+        System.out.println("Introduzca la fecha de inicio del tratamiento:");
+        System.out.println("Introduzca el día:");
+        String dia = scanner.nextLine();
+        System.out.println("Introduzca el mes:");
+        String mes = scanner.nextLine();
+        System.out.println("Introduzca el año:");
+        String anho = scanner.nextLine();
+        LocalDate fecha_inicio = LocalDate.of(Integer.parseInt(anho), Integer.parseInt(mes), Integer.parseInt(dia));
+        System.out.println("Introduzca el tipo de tratamiento:");
+        String tipo = scanner.nextLine();
+        Integer id_tratamiento = tratamientoRepositorio.getByTipo(tipo);
+        if (id_tratamiento == null) {
+            System.out.println("No se ha encontrado el tratamiento con tipo " + tipo);
+            return;
+        }
+        System.out.println("Introduzca la fecha de fin del tratamiento:");
+        System.out.println("Introduzca el día:");
+        dia = scanner.nextLine();
+        System.out.println("Introduzca el mes:");
+        mes = scanner.nextLine();
+        System.out.println("Introduzca el año:");
+        anho = scanner.nextLine();
+        LocalDate fecha_fin = LocalDate.of(Integer.parseInt(anho), Integer.parseInt(mes), Integer.parseInt(dia));
+        Recibe recibe = new Recibe();
+        recibe.setPaciente(paciente);
+        recibe.setTratamiento(tratamientoRepositorio.getById(id_tratamiento));
+        recibe.setFecha_inicio(fecha_inicio);
+        recibe.setFecha_fin(fecha_fin);
+        recibeRepositorio.actualizar(recibe);
+        
+    }
+   
+    private static void cambiarHospitalTratamiento() {
+        System.out.println("Introduzca el id del tratamiento:");
+        int id_tratamiento = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Introduzca el nombre del hospital actual:");
+        String hospital_actual = scanner.nextLine();
+        System.out.println("Introduzca el nombre del hospital del nuevo tratamiento:");
+        String hospital_nuevo = scanner.nextLine();
+        tratamientoRepositorio.cambiarHospitalTratamiento(id_tratamiento, hospital_actual, hospital_nuevo);
+    }
+
+    private static void mostrarDatosPaciente() {
+        
+        System.out.println("Introduzca el nombre del paciente:");
+        String nombrePaciente = scanner.nextLine();
+        Paciente paciente = pacienteRepositorio.buscarPorNombre(nombrePaciente);
+        if (paciente == null) {
+            System.out.println("No se ha encontrado el paciente con nombre " + nombrePaciente);
+            return;
+        }
+        System.out.println("ID: " + paciente.getId());
+        System.out.println("Nombre: " + paciente.getNombre());
+        System.out.println("Fecha de nacimiento: " + paciente.getFecha_nacimiento());
+        System.out.println("Dirección: " + paciente.getDireccion());
+        System.out.println("Tratamientos que recibe:");
+        System.out.println(paciente.getRecibe());
+        System.out.println("Citas que tiene:");
+        System.out.println(paciente.getCitas());
+    }
+
+    private static void mostrarDatosTratamientosPorHospital() {
+        System.out.println("Introduzca el nombre del hospital:");
+        String nombreHospital = scanner.nextLine();
+        System.out.println("Tratamientos del hospital:");
+        Hospital hospital = hospitalRepositorio.getByNombre(nombreHospital);
+        if (hospital == null) {
+            System.out.println("No se ha encontrado el hospital con nombre " + nombreHospital);
+            return;
+        }
+        System.out.println(hospital.getTratamiento());
+    }
+
+    private static void mostrarNumeroTotalTratamientosPorHospital() {
+        System.out.println("Introduzca el nombre del hospital:");
+        String nombreHospital = scanner.nextLine();
+        Hospital hospital = hospitalRepositorio.getByNombre(nombreHospital);
+        if (hospital == null) {
+            System.out.println("No se ha encontrado el hospital con nombre " + nombreHospital);
+            return;
+        }
+        System.out.println("Número total de tratamientos del hospital " + nombreHospital + ": " + hospital.getTratamiento().size());
+    }
+
+
+
 }

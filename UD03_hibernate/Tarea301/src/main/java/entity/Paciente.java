@@ -38,10 +38,18 @@ public class Paciente {
     
     @OneToMany(mappedBy = "paciente")
     private List<Cita> citas;
+
+    @OneToMany(mappedBy = "paciente")
+    private List<Recibe> recibe;
     
     public void addCitas(Cita cita){
         this.citas.add(cita);
         cita.setPaciente(this);
+    }
+
+    public void addRecibe(Recibe recibe){
+        this.recibe.add(recibe);
+        recibe.setPaciente(this);
     }
     
 }

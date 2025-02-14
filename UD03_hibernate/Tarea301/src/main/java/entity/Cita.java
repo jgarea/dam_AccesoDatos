@@ -50,7 +50,7 @@ public class Cita {
     
     @Override
     public String toString() {
-        return "Cita{" + "id=" + id + ", fecha=" + fecha + ", estado=" + estado + '}';
+        return "Cita{" + "id=" + id + ", fecha=" + fecha + ", estado=" + estado + "}\n";
     }
     
 }

@@ -14,5 +14,9 @@
     <mapping class="entity.Doctor"/>
     <mapping class="entity.Paciente"/>
     <mapping class="entity.Cita"/>
+    <mapping class="entity.Hospital"/>
+    <mapping class="entity.Recibe"/>
+    <mapping class="entity.Tratamiento"/>
+
   </session-factory>
 </hibernate-configuration>

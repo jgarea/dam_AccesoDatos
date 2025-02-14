@@ -1,8 +1,15 @@
 D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\entity\Paciente.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\entity\Recibe.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\CitaRepositorio.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\RecibeRepositorio.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\entity\Doctor.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\HospitalRepositorio.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\Repositorio.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\entity\Hospital.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\entity\Tratamiento.java
 D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\Tarea301.java
 D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\DoctorRepositorio.java
 D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\entity\Cita.java
+D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\TratamientoRepositorio.java
 D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\HibernateUtil.java
 D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\PacienteRepositorio.java
-D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\entity\Doctor.java
-D:\DAM\AccesoDatos\UD03\tarea\Tarea301\src\main\java\repositorio\Repositorio.java
