@@ -1,0 +1,101 @@
+[{
+  "_id": "cliente1@example.com",
+  "nombre": "Nombre Cliente 1",
+  "email": "cliente1@example.com",
+  "edad": 17,
+  "direccion": "Dirección Cliente 1",
+  "carrito": [
+    {
+      "nombre": "EA Sports FC 25",
+      "cantidad": 1,
+      "precio_unitario": 69.99,
+      "id": 4
+    },
+    {
+      "nombre": "The Legend of Zelda: Breath of the Wild",
+      "cantidad": 2,
+      "precio_unitario": 59.99,
+      "id": 1
+    }
+  ],
+  "compras": [
+    {
+      "compra_id": {
+        "$oid": "67a92442905d945bce7c32d6"
+      },
+      "videojuegos": [
+        {
+          "videojuego_id": 4,
+          "nombre": "EA Sports FC 25",
+          "cantidad": 99,
+          "precio_unitario": 69.99
+        },
+        {
+          "videojuego_id": 8,
+          "nombre": "Elden Ring",
+          "cantidad": 3,
+          "precio_unitario": 59.99
+        }
+      ],
+      "total": 7108.98,
+      "fecha_compra": {
+        "$date": "2025-01-01T23:00:00.000Z"
+      }
+    }
+  ]
+},
+{
+  "_id": "qw",
+  "nombre": "Juan",
+  "email": "qw",
+  "edad": 3,
+  "direccion": "de",
+  "carrito": [
+    {
+      "id": 4,
+      "cantidad": 3
+    }
+  ],
+  "compras": [
+    {
+      "compra_id": {
+        "$oid": "67dacf89c5e9ed5bb5d24e33"
+      },
+      "videojuegos": [
+        {
+          "videojuego_id": 4,
+          "nombre": "EA Sports FC 25",
+          "cantidad": 5,
+          "precio_unitario": 69.99
+        },
+        {
+          "videojuego_id": 11,
+          "nombre": "Super Mario Odyssey",
+          "cantidad": 1,
+          "precio_unitario": 49.99
+        }
+      ],
+      "total": 399.94,
+      "fecha": {
+        "$date": "2025-03-19T14:07:05.360Z"
+      }
+    },
+    {
+      "compra_id": {
+        "$oid": "67dacff5d583ac51711a48cf"
+      },
+      "videojuegos": [
+        {
+          "videojuego_id": 4,
+          "nombre": "EA Sports FC 25",
+          "cantidad": 4,
+          "precio_unitario": 69.99
+        }
+      ],
+      "total": 279.96,
+      "fecha": {
+        "$date": "2025-03-19T00:00:00.000Z"
+      }
+    }
+  ]
+}]
